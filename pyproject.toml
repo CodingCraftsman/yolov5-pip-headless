@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "yolov5-headless"
-version = "7.0.13"
+version = "7.0.13-post.1"
 description = "Packaged version of the YoloV5 object detector, sans UI requirements"
 authors = []
 maintainers = [
