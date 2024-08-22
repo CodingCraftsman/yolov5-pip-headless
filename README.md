@@ -1,10 +1,6 @@
-<h1 align="center">
-  packaged ultralytics/yolov5
-</h1>
+# <div align="center">packaged ultralytics/yolov5</div>
 
-<h4 align="center">
-  pip install yolov5
-</h4>
+#### <div align="center">pip install yolov5-headless</div>
 
 <div align="center">
   <a href="https://pepy.tech/project/yolov5"><img src="https://pepy.tech/badge/yolov5" alt="total downloads"></a>
@@ -15,6 +11,35 @@
   <a href="https://github.com/fcakyon/yolov5-pip/actions/workflows/ci.yml"><img src="https://github.com/fcakyon/yolov5-pip/actions/workflows/ci.yml/badge.svg" alt="ci testing"></a>
   <a href="https://github.com/fcakyon/yolov5-pip/actions/workflows/package_testing.yml"><img src="https://github.com/fcakyon/yolov5-pip/actions/workflows/package_testing.yml/badge.svg" alt="package testing"></a>
 </div>
+
+## <div align="center">Warnings</div>
+
+- Support for `opencv-python` replaced with `opencv-python-headless`; GUI-related stuff no longer officially supported
+  here.
+- In that regard, `sahi` dependency removed.
+- Package build configured to use `poetry`.
+- Dependencies for some support which interacts with 3rd-party services have been moved to "extras" and are now
+  optional:
+  - `aws`: `boto3`
+  - `huggingface`: `huggingface-hub`
+  - `logging`: `tensorboard`
+  - `roboflow`: `roboflow`
+- File an issue in [this repository](https://github.com/CodingCraftsman/yolov5-pip-headless) if any of the
+  aforementioned dependencies should be required and not optional. Our use cases do not require them,
+  and so in an effort to reduce the overall footprint when installing YoloV5, they were made optional.
+
+The primary reason for this fork of YoloV5 was to remove the UI dependencies; our use cases are primarily background
+services which
+are accessed via REST request, and so there is no need nor ability to have a UI. Hopefully, this helps others who also
+share in this
+scenario and it proves to be useful to them.
+
+There are no plans to make changes to the YoloV5 code itself, only incorporate changes that have been added to the
+[upstream repository](https://github.com/fcakyon/yolov5-pip) as they become available. In that regard, for now our
+version numbers will
+coincide with those from that repository, starting with version `7.0.13`.
+
+Original README documentation follows; replace `yolov5` with `yolov5-headless` as required ...
 
 ## <div align="center">Overview</div>
 
@@ -41,8 +66,6 @@ This yolov5 package contains everything from ultralytics/yolov5 <a href="https:/
 <br>
 7. Classwise AP logging during experiments
 
-
-
 ## <div align="center">Install</div>
 
 Install yolov5 using pip (for Python >=3.7)
@@ -53,11 +76,10 @@ pip install yolov5
 
 ## <div align="center">Model Zoo</div>
 
-
-
 <div align="center">
 
-Effortlessly explore and use finetuned YOLOv5 models with one line of code: <a href="https://github.com/keremberke/awesome-yolov5-models">awesome-yolov5-models</a>
+Effortlessly explore and use finetuned YOLOv5 models with one line of
+code: <a href="https://github.com/keremberke/awesome-yolov5-models">awesome-yolov5-models</a>
 
 <a href="https://github.com/keremberke/awesome-yolov5-models"><img src="https://user-images.githubusercontent.com/34196005/210134158-108b24f4-2b8e-43ea-95c8-44731625cde2.gif" width="640"></a>
 </div>
@@ -72,7 +94,7 @@ model = yolov5.load('yolov5s.pt')
 
 # or load custom model
 model = yolov5.load('train/best.pt')
-  
+
 # set model parameters
 model.conf = 0.25  # NMS confidence threshold
 model.iou = 0.45  # NMS IoU threshold
@@ -94,7 +116,7 @@ results = model(img, augment=True)
 
 # parse results
 predictions = results.pred[0]
-boxes = predictions[:, :4] # x1, y1, x2, y2
+boxes = predictions[:, :4]  # x1, y1, x2, y2
 scores = predictions[:, 4]
 categories = predictions[:, 5]
 
@@ -137,7 +159,8 @@ detect.run(source=img_url, weights="yolov5s6.pt", conf_thres=0.25, imgsz=640)
 
 ## <div align="center">Use from CLI</div>
 
-You can call `yolov5 train`, `yolov5 detect`, `yolov5 val` and `yolov5 export` commands after installing the package via `pip`:
+You can call `yolov5 train`, `yolov5 detect`, `yolov5 val` and `yolov5 export` commands after installing the package
+via `pip`:
 
 <details open>
 <summary>Training</summary>
@@ -171,7 +194,8 @@ $ yolov5 train --data data.yaml --weights yolov5s.pt
 $ yolov5 train --data DATASET_UNIVERSE_URL --weights yolov5s.pt --roboflow_token YOUR_ROBOFLOW_TOKEN
 ```
 
-Where `DATASET_UNIVERSE_URL` must be in `https://universe.roboflow.com/workspace_name/project_name/project_version` format.
+Where `DATASET_UNIVERSE_URL` must be in `https://universe.roboflow.com/workspace_name/project_name/project_version`
+format.
 
 - Visualize your experiments via [Neptune.AI](https://neptune.ai/) (neptune-client>=0.10.10 required):
 
@@ -212,7 +236,8 @@ yolo_s3_data_dir: s3://bucket_name/data_dir/
 <details open>
 <summary>Inference</summary>
 
-yolov5 detect command runs inference on a variety of sources, downloading models automatically from the [latest YOLOv5 release](https://github.com/ultralytics/yolov5/releases) and saving results to `runs/detect`.
+yolov5 detect command runs inference on a variety of sources, downloading models automatically from
+the [latest YOLOv5 release](https://github.com/ultralytics/yolov5/releases) and saving results to `runs/detect`.
 
 ```bash
 $ yolov5 detect --source 0  # webcam
@@ -230,7 +255,8 @@ $ yolov5 detect --source 0  # webcam
 <details open>
 <summary>Export</summary>
 
-You can export your fine-tuned YOLOv5 weights to any format such as `torchscript`, `onnx`, `coreml`, `pb`, `tflite`, `tfjs`:
+You can export your fine-tuned YOLOv5 weights to any format such
+as `torchscript`, `onnx`, `coreml`, `pb`, `tflite`, `tfjs`:
 
 ```bash
 $ yolov5 export --weights yolov5s.pt --include torchscript,onnx,coreml,pb,tfjs
