@@ -1,0 +1,82 @@
+[tool.poetry]
+name = "yolov5-headless"
+version = "7.0.13"
+description = "Packaged version of the YoloV5 object detector, sans UI requirements"
+authors = []
+maintainers = [
+    "William Clifford <171434+wmclifford@users.noreply.github.com>",
+]
+license = "GPL"
+readme = "README.md"
+packages = [{ include = "yolov5" }]
+repository = "https://github.com/CodingCraftsman/yolov5-pip-headless"
+keywords = [
+    "machine-learning",
+    "deep-learning",
+    "ml",
+    "pytorch",
+    "YOLO",
+    "object-detection",
+    "vision",
+    "YOLOv5",
+    "YOLOv7",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: GNU General Public License (GPL)",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Education",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+boto3 = { version = "^1.35.3", optional = true }
+fire = "^0.6.0"
+gitpython = "^3.1.30"
+huggingface-hub = { version = "^0.24", optional = true }
+matplotlib = "^3.9"
+numpy = "^1.26"
+opencv-python-headless = "^4.10"
+pandas = "^2.2"
+pillow = "^10.4"
+psutil = "^6.0.0"
+pyyaml = "^6.0"
+requests = "^2.23.0"
+roboflow = { version = "^1.1", optional = true }
+#sahi = { version = ">=0.11.10", optional = true }
+scipy = "^1.13"
+seaborn = "^0.13.2"
+tensorboard = { version = "^2.17", optional = true }
+thop = "^0.1.1"
+torch = "^2.4.0"
+torchvision = "^0.19.0"
+tqdm = "^4.66.5"
+ultralytics-nogui = "^8.0.100"
+urllib3 = "^1.26"
+
+[tool.poetry.extras]
+aws = ["boto3"]
+huggingface = ["huggingface-hub"]
+logging = ["tensorboard"]
+roboflow = ["roboflow"]
+# Warning: this pulls in opencv-python with GUI
+#sahi = ["sahi"]
+
+[tool.poetry.scripts]
+yolov5 = "yolov5.cli:app"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
