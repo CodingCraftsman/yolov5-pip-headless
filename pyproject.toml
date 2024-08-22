@@ -39,43 +39,37 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
-gitpython = ">=3.1.30"
-matplotlib = ">=3.3"
-numpy = ">=1.18.5"
-opencv-python-headless = ">=4.1.1"
-pillow = ">=7.1.2"
-psutil = "^6.0.0"
-pyyaml = ">=5.3.1"
-requests = ">=2.23.0"
-scipy = ">=1.4.1"
-thop = ">=0.1.1"
-torch = ">=1.7.0"
-torchvision = ">=0.8.1"
-tqdm = ">=4.64.0"
-ultralytics-nogui = ">=8.0.100"
-
-[tool.poetry.group.extras]
-optional = true
-
-[tool.poetry.group.extras.dependencies]
-boto3 = ">=1.19.1"
+boto3 = { version = "^1.35.3", optional = true }
 fire = "^0.6.0"
-huggingface-hub = ">=0.12.0"
-roboflow = ">=0.2.29"
-sahi = ">=0.11.10"
+gitpython = "^3.1.30"
+huggingface-hub = { version = "^0.24", optional = true }
+matplotlib = "^3.9"
+numpy = "^1.26"
+opencv-python-headless = "^4.10"
+pandas = "^2.2"
+pillow = "^10.4"
+psutil = "^6.0.0"
+pyyaml = "^6.0"
+requests = "^2.23.0"
+roboflow = { version = "^1.1", optional = true }
+#sahi = { version = ">=0.11.10", optional = true }
+scipy = "^1.13"
+seaborn = "^0.13.2"
+tensorboard = { version = "^2.17", optional = true }
+thop = "^0.1.1"
+torch = "^2.4.0"
+torchvision = "^0.19.0"
+tqdm = "^4.66.5"
+ultralytics-nogui = "^8.0.100"
+urllib3 = "^1.26"
 
-[tool.poetry.group.logging]
-optional = true
-
-[tool.poetry.group.logging.dependencies]
-tensorboard = ">=2.4.1"
-
-[tool.poetry.group.plotting]
-optional = true
-
-[tool.poetry.group.plotting.dependencies]
-pandas = ">=1.1.4"
-seaborn = ">=0.11.0"
+[tool.poetry.extras]
+aws = ["boto3"]
+huggingface = ["huggingface-hub"]
+logging = ["tensorboard"]
+roboflow = ["roboflow"]
+# Warning: this pulls in opencv-python with GUI
+#sahi = ["sahi"]
 
 [tool.poetry.scripts]
 yolov5 = "yolov5.cli:app"
